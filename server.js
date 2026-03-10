@@ -4,7 +4,7 @@ const app = express();
 const connectToDb = require("./database/db");
 const bookRoutes = require("./routes/book-routes");
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 //connect to database
 connectToDb();
@@ -13,6 +13,6 @@ connectToDb();
 app.use(express.json());
 
 //routes
-app.use("/api/routes", bookRoutes);
+app.use("/api/books", bookRoutes);
 
 app.listen(PORT, () => console.log(`server is running on port ${PORT}`));
