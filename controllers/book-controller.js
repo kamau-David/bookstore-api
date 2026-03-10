@@ -63,6 +63,33 @@ const addNewBooks = async (req, res) => {
   }
 };
 
+// PUT update a book by ID
+const updateBook = async (req, res) => {
+  try {
+    const updatedBook = await Book.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    if (!updatedBook) {
+      return res.status(404).json({
+        success: false,
+        message: "Book not found!",
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: "Book updated successfully!",
+      body: updatedBook,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to update the book. Please try again.",
+    });
+  }
+};
+
 
 
 module.exports = {
