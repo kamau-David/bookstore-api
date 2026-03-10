@@ -90,7 +90,29 @@ const updateBook = async (req, res) => {
   }
 };
 
-
+// DELETE a book by ID
+const deleteBook = async (req, res) => {
+  try {
+    const deletedBook = await Book.findByIdAndDelete(req.params.id);
+    if (!deletedBook) {
+      return res.status(404).json({
+        success: false,
+        message: "Book not found!",
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: "Book deleted successfully!",
+      body: deletedBook,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to delete the book. Please try again.",
+    });
+  }
+};
 
 module.exports = {
   addNewBooks,
