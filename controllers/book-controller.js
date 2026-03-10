@@ -42,6 +42,27 @@ const getSingleBook = async (req, res) => {
   }
 };
 
+// POST a new book
+const addNewBooks = async (req, res) => {
+  try {
+    const newBookFormData = req.body;
+    const newlyCreatedBook = await Book.create(newBookFormData);
+    if (newlyCreatedBook) {
+      res.status(201).json({
+        success: true,
+        message: "New book created successfully!",
+        body: newlyCreatedBook,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to create the book. Please try again.",
+    });
+  }
+};
+
 
 
 module.exports = {
